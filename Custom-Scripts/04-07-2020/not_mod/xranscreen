@@ -1,0 +1,50 @@
+#!/bin/bash 
+# HDMI screen manager 
+# Made by GreyNom, credit completly to Brodie Robertson 
+# Link here: https://www.youtube.com/watch?v=wu2NWw2wPaA
+# Execute xrandr at first to see your display ports, normally laptop screens have eDP ports
+
+#Settings --> Add here your ports and size of the display
+inte="eDP1" 			#--> Laptop display 
+exte="HDMI1"			#--> External display 
+sizedispl="1920x1080" 	#--> Size of the external display
+
+#Settings of display postitioning 
+#At the end of the 22th line you'll see the reference to the list, change the pointer to the mode you want the external display to be positioned
+placedisp=("--above" "--below" "--left-of" "--right-of")
+
+if [ -z $1 ] ; then
+echo "Enter arguments, --help option available"
+exit
+fi
+
+case "$1" in 
+"off") 
+xrandr --output "$exte" --off --output "$inte" --auto 
+;;
+"add")
+xrandr --output "$exte" --set audio force-dvi --mode $sizedispl && xrandr --output "$inte" --auto --output "$exte" ${placedisp[0]} "$inte"
+;;
+"duplicate")
+xrandr --output "$exte" --mode $sizedispl && xrandr --output "$inte" --auto --output "$exte" --same-as "eDP1"
+;;
+"--help")
+echo '
+____  ___                      _________                                   
+\   \/  /___________    ____  /   _____/ ___________   ____   ____   ____  
+ \     /\_  __ \__  \  /    \ \_____  \_/ ___\_  __ \_/ __ \_/ __ \ /    \ 
+ /     \ |  | \// __ \|   |  \/        \  \___|  | \/\  ___/\  ___/|   |  \
+/___/\  \|__|  (____  /___|  /_______  /\___  >__|    \___  >\___  >___|  /
+      \_/           \/     \/        \/     \/            \/     \/     \/ 
+
+
+Usage: xranscreen [ off  | add  | duplicate ]
+
+Manipulate the script for manipulate settings 
+
+Thanks for using it!
+'
+;;
+*)
+notify-send "XranScreen" "Unknown Operation"
+esac 
