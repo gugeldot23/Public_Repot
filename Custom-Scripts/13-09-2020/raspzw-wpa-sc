@@ -1,0 +1,99 @@
+#!/bin/bash
+# Keep the next line untouched please, is the one incharged of writting its own code of profiles
+# Recorded profiles! Zone of storage
+
+#--------------------------------------------------
+#Administrative variables
+ipi=$(ifconfig | grep 192 | cut -d' ' -f10) #Your IP in the network
+ssid=$(iwgetid | cut -d '"' -f2)		#The ssid of the network connected
+model_name="prof"		#Model name for the profiles
+filepath='./wpa-supplicant.conf' #Path of the config file 
+
+#Founder of how many profiles there are and listing
+how_many_s() { #How many simple
+ echo $(cat $0 | grep "$model_name[0-9][=]" | wc --lines)
+}
+how_many_a() { #How many all 
+ echo "Profiles available: [$(how_many_s)]"
+ cat $0 | grep "$model_name[0-9][=]"
+}
+
+#Checks if has put any first argument 
+none_check(){
+ if [ -z $1 ] 
+ then 
+  echo -e  "Enter an argument or a valid one\n--help available"  && exit
+ fi
+}
+
+none_check $1
+case "$1" in 
+--help) ###################################################### DONE
+ echo '
+ --help -> duh
+ --status -> show ip, network connected and profile selected
+ --n-prf [SSID] [Password]-> new profile to be saved
+ --d-prf [Number of target profile]-> delete a profile
+ --use -> apply changes set in selected profile to /etc/wpa..	 
+ '
+;;
+--status) ###################################################### DONE
+ echo "IP: $ipi"
+ echo "Network connected: $ssid"
+ how_many_a
+;;
+--n-prf) ######################################################
+#Filter wrong iputs
+none_check $2 
+none_check $3
+#Formation of the profile name
+in_name=$(echo -n $model_name && echo $(( $(how_many_s) + 1)))
+
+#Informative
+echo -e "\n Creating a profile:\n \t SSID: $2 \n\t Passwd: $3 \n\t Internal name: $in_name \n\n"
+#The core
+sed -i "3 a $in_name=( [\"name\"]=\"$2\" [\"pass\"]=\"$3\")" $0
+sed -i "3 a declare -A $in_name" $0
+#Finish info
+how_many_a
+;;
+--d-prf) ######################################################
+none_check $2
+
+target=$(echo -n $model_name && echo $2)
+locate_target=$(( $(cat -n $0 | grep $target[=] | cut -f1) + 0 ))
+
+if [ $locate_target -eq 0 ]
+then 
+ echo -e "Not available, please insert a valid one\n"
+ how_many_a
+else
+ echo -e "Profile deleted\n"
+ sed_target=$(echo -n $locate_target && echo "d")
+ sed_target2=$(echo -n "$(($locate_target -1 ))" && echo "d" )
+ sed -i $sed_target $0
+ sed -i $sed_target2 $0
+ how_many_a
+fi
+;;
+--use)
+none_check $2
+target=$(echo -n $model_name && echo $2)
+locate_target=$(( $(cat -n $0 | grep $target[=] | cut -f1) +0 ))
+
+if [ $locate_target -eq 0 ]
+then 
+echo -e "Profile not found, please enter a vaild one\n"
+how_many_a
+exit
+else
+echo "Founded $target"
+form_name=$(echo "\${$target[name]}")
+echo "${$target[*]}"
+echo "${prof2[name]}"
+fi
+;;
+*) ############################ 
+echo "Enter a valid argument, --help available" && exit
+esac
+
