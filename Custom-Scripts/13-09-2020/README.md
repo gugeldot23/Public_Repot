@@ -1,12 +1,7 @@
-______                _                         ______ _ _____  _    _ 
-| ___ \              | |                        | ___ (_)  _  || |  | |
-| |_/ /__ _ ___ _ __ | |__   ___ _ __ _ __ _   _| |_/ /_| |/' || |  | |
-|    // _` / __| '_ \| '_ \ / _ \ '__| '__| | | |  __/| |  /| || |/\| |
-| |\ \ (_| \__ \ |_) | |_) |  __/ |  | |  | |_| | |   | \ |_/ /\  /\  /
-\_| \_\__,_|___/ .__/|_.__/ \___|_|  |_|   \__, \_|   |_|\___/  \/  \/ 
-               | |                          __/ |                      
-               |_|                         |___/                       
-                                                                                                 
+
+#########################################
+RASPBERRY PI ZERO W WPA SUPPLICANT EDITOR                          
+#########################################
 
 Hi guys, some ago I got a raspberry pi 0W, It's quite interesting, It really helped me to learn more Shell
 Scripting and some fun projects such as a radio. 
