@@ -1,9 +1,6 @@
 #!/bin/bash
 # Keep the next line untouched please, is the one incharged of writting its own code of profiles
 # Recorded profiles! Zone of storage
-declare -A prof3=( ["name"]="Hitler" ["pass"]="anodos23")
-declare -A prof2=( ["name"]="MOVISTAR_2A3D" ["pass"]="1CEA1663D0F9CE365670")
-declare -A prof1=( ["name"]="MOVISTAR_2A69" ["pass"]="B6A966C2F38DE9FB3154")
 
 #--------------------------------------------------
 #Administrative variables
