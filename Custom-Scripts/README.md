@@ -14,3 +14,8 @@ Have a good day!
 
 Written 04/07/2020
 
+UPDATE: 
+This repository also works as a library of some activities I made on my own. I hope you find it interesting !
+
+Updated 01/12/2020
+
