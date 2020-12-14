@@ -1,0 +1,15 @@
+#!/bin/bash 
+banner="figlet <0>"
+if [ -z $1 ];
+then
+echo -e "Indicate path to the directory to be watched \n Example: \n dir_watch ./ex/"
+exit
+fi
+while true
+do
+$banner
+echo -e "Watching directory: $1 \n -------------------"
+ls -l $1
+sleep 0.1s
+clear
+done
