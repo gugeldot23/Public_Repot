@@ -1,4 +1,0 @@
-#!/bin/bash 
-BatteryCheck-Terminal 
-echo ""
-FreeSpaceScript-Terminal
